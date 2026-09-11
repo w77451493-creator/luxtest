@@ -1,0 +1,92 @@
+# Aholo Lux3D for Codex — agent installation entrypoint
+
+The user asked you to install Aholo Lux3D for Codex. Read this entire file, follow **Install into Codex**, then complete the handoff. Do not ask the user to download a zip.
+
+Public agent entrypoint: `https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md`
+
+Canonical repository: `https://github.com/w77451493-creator/luxtest`
+
+- Marketplace: `luxtest`
+- Plugin: `aholo-lux3d`
+- Display name: `Aholo Lux3D`
+- Stable selector: `aholo-lux3d@luxtest`
+- Plugin version: `0.1.0`
+- Git source: `w77451493-creator/luxtest`
+- Git ref: `main`
+- Host: Codex Desktop / Codex CLI
+
+This plugin does not register an MCP server. After install, a **new Codex task** is required. Invoke with `$lux3d` or `@aholo-lux3d`.
+
+## First decide the operation
+
+Choose exactly one lane:
+
+1. **Install or set up** — follow "Install into Codex" below.
+2. **Inspect or explain** — read `README.md`, `.agents/plugins/marketplace.json`, and `plugins/codex/aholo-lux3d/.codex-plugin/plugin.json`. Do not change configuration.
+3. **Uninstall** — `codex plugin remove aholo-lux3d@luxtest`, then optionally `codex plugin marketplace remove luxtest` if no other plugins use that marketplace.
+
+Do not copy plugin files into a Codex home directory. Do not treat any packaged archive as the user install path; the Git marketplace is the install path.
+
+## Install into Codex
+
+An explicit request to install or set up authorizes changes to the user's Codex plugin configuration. It does not authorize Git pushes, publishing, deleting unrelated plugins, or collecting API keys unless the user then asks to generate assets.
+
+### 1. Preflight
+
+```bash
+LUX3D_PLUGIN_SOURCE="w77451493-creator/luxtest"
+codex --version
+git ls-remote https://github.com/w77451493-creator/luxtest.git main
+```
+
+Require a Codex CLI that supports `codex plugin marketplace` (0.121.0 or newer; prefer 0.144.6+). If `codex` is missing, tell the user to install Codex CLI / ChatGPT desktop first. If `git ls-remote` returns 404, the repository is private or the network cannot reach GitHub; stop and report that the marketplace source must be a public Git repo.
+
+### 2. Inspect before mutating
+
+```bash
+codex plugin marketplace list --json
+codex plugin list --json
+```
+
+If `aholo-lux3d@luxtest` is already installed at version `0.1.0`, do not reinstall it. If marketplace `luxtest` exists but points at a different source, stop and report the name collision. Never remove or overwrite unrelated marketplaces, plugins, MCP servers, or auth state.
+
+### 3. Install the plugin
+
+```bash
+codex plugin marketplace add "$LUX3D_PLUGIN_SOURCE" --ref main --json
+codex plugin add aholo-lux3d@luxtest --json
+```
+
+`alreadyAdded: true` is success.
+
+### 4. Verify
+
+```bash
+codex plugin list --json
+```
+
+Required evidence:
+
+- plugin id `aholo-lux3d@luxtest`
+- installed version `0.1.0`
+- marketplace name `luxtest`
+
+If the plugin is listed but not enabled, install or enable it from the Plugins directory under the **Aholo Lux3D** tab.
+
+### 5. Hand back
+
+Report:
+
+- whether installation was new or already present
+- installed plugin id and version
+- that a **new Codex task** is needed to load the plugin snapshot
+- that the user should invoke `$lux3d` (or `@aholo-lux3d`) in the new task
+- that paid generation later needs `LUX3D_CN_API_KEY` (cn) or `LUX3D_GLOBAL_API_KEY` (international) in the environment; do not collect keys during install
+
+Do not claim generation works until a task has actually been submitted.
+
+## Safety boundaries
+
+- Do not put API keys in command arguments, chat logs, or committed files.
+- Do not download or execute unverified install scripts from outside this repository.
+- Do not change Git remotes, push, publish, or create a PR without explicit authorization.
