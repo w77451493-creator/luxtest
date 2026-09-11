@@ -50,6 +50,8 @@ plugins/codex/aholo-lux3d/         插件本体，安装包原样，不要手改
 AGENTS.md                          Agent 安装入口，prompt 读取的目标文件
 ```
 
+发新版本时：替换 `plugins/codex/aholo-lux3d/` 整个目录，并**同步改 `.codex-plugin/plugin.json` 里的 `version`**。Codex 用 `marketplace/插件名/版本号` 当缓存 key，版本号不变就不会触发重装，用户永远停在旧版。
+
 ## 要求
 
 - Codex CLI `0.121.0` 以上（或当前 Codex / ChatGPT 桌面端）
