@@ -22,7 +22,7 @@ This plugin does not register an MCP server. After install, a **new Codex task**
 Choose exactly one lane:
 
 1. **Install or set up** — follow "Install into Codex" below.
-2. **Inspect or explain** — read `README.md`, `.agents/plugins/marketplace.json`, and `plugins/codex/aholo-lux3d/.codex-plugin/plugin.json`. Do not change configuration.
+2. **Inspect or explain** — read `.agents/plugins/marketplace.json` and `plugins/codex/aholo-lux3d/.codex-plugin/plugin.json`. Do not change configuration.
 3. **Uninstall** — `codex plugin remove aholo-lux3d@luxtest`, then optionally `codex plugin marketplace remove luxtest` if no other plugins use that marketplace.
 
 Do not copy plugin files into a Codex home directory. Do not treat any packaged archive as the user install path; the Git marketplace is the install path.
