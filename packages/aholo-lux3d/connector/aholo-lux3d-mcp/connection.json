@@ -1,0 +1,56 @@
+{
+  "schema": "lux3d.connection/v1",
+  "connectionId": "lux3d-mcp",
+  "descriptorIsHostNative": false,
+  "transport": "streamable-http",
+  "region": "cn",
+  "endpoint": "https://api.aholo3d.cn/lux3d-mcp/mcp",
+  "authentication": {
+    "type": "api-key",
+    "header": "Authorization",
+    "prefix": "",
+    "secretRef": "lux3d.cn.apiKey",
+    "scope": "per-user-connection",
+    "redirectPolicy": "same-origin-only"
+  },
+  "identity": {
+    "mode": "automatic-host",
+    "registry": "host-identity.json",
+    "resolver": "scripts/host_identity.py",
+    "context": "host-session",
+    "sourceOverrideAllowed": false,
+    "agentNameRequiredOn": {
+      "knownHosts": [
+        "quote"
+      ],
+      "fallback": [
+        "account",
+        "quote"
+      ]
+    },
+    "injection": "verified-tool-schema-or-host-integration",
+    "enforcement": "instruction"
+  },
+  "toolMap": {
+    "schema": "lux3d.tool-map/v1",
+    "path": "tool-map.json"
+  },
+  "policy": {
+    "timeoutSeconds": 60,
+    "readMaxAttempts": 3,
+    "createMaxAttempts": 1,
+    "automaticCreateRetry": false,
+    "crossRegionFallback": false,
+    "maxResponseBytes": 16777216,
+    "pollIntervalSeconds": 10,
+    "pollTimeoutSeconds": 1800,
+    "maxConcurrentCreates": 1
+  },
+  "qualification": {
+    "commonIdentityValidated": false,
+    "toolSchemasValidated": false,
+    "authenticationValidated": false,
+    "paidCreation": "blocked-until-host-and-endpoint-acceptance"
+  },
+  "extensions": {}
+}

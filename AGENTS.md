@@ -1,107 +1,98 @@
-# Aholo Lux3D for Codex — agent installation entrypoint
+# Aholo Lux3D — agent installation entrypoint
 
-The user asked you to install Aholo Lux3D for Codex. Read this entire file, follow **Install into Codex**, then complete the handoff. Do not ask the user to download a zip.
+The user asked you to install Aholo Lux3D. Read this entire file, then install **both** parts of the `aholo-lux3d` product from `catalog.json`. This repository is a shared catalog for coding agents. It is not a Codex-only marketplace, and it is not one repository per product.
 
 Public agent entrypoint: `https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md`
 
 Canonical repository: `https://github.com/w77451493-creator/luxtest`
 
-- Marketplace: `luxtest`
-- Plugin: `aholo-lux3d`
-- Display name: `Aholo Lux3D`
-- Stable selector: `aholo-lux3d@luxtest`
-- Plugin version: `0.1.0`
-- Git source: `w77451493-creator/luxtest`
-- Git ref: `main`
-- Host: Codex Desktop / Codex CLI
+Product `aholo-lux3d` version `0.1.2` has two parts. Install both. Do not stop after one.
 
-This plugin does not register an MCP server. After install, a **new Codex task** is required. Invoke with `$lux3d` or `@aholo-lux3d`.
+| Part | Directory | What it is |
+| --- | --- | --- |
+| Skill | `packages/aholo-lux3d/skill/aholo-lux3d` | Local skill. Calls the Lux3D OpenAPI. Name: `aholo-lux3d`. |
+| Connector | `packages/aholo-lux3d/connector/aholo-lux3d-mcp` | MCP instructions. Name: `aholo-lux3d-mcp`. The remote connection is registered separately. |
 
-## First decide the operation
+Importing the Connector directory does **not** connect the remote MCP. Loading the Skill does **not** register MCP tools.
 
-Choose exactly one lane:
+## Install
 
-1. **Install or set up** — follow "Install into Codex" below.
-2. **Inspect or explain** — read `.agents/plugins/marketplace.json` and `plugins/codex/aholo-lux3d/.codex-plugin/plugin.json`. Do not change configuration.
-3. **Uninstall** — `codex plugin remove aholo-lux3d@luxtest`, then optionally `codex plugin marketplace remove luxtest` if no other plugins use that marketplace.
+An explicit request to install authorizes writing this product's skill directories and this product's MCP connection into the current host. It does not authorize Git pushes, deleting unrelated skills, or collecting API keys into chat or files.
 
-Do not copy plugin files into a Codex home directory. Do not treat any packaged archive as the user install path; the Git marketplace is the install path.
+### 1. Read the catalog
 
-## Install into Codex
+Read `catalog.json` in this repository. Use the `aholo-lux3d` entry. Clone `https://github.com/w77451493-creator/luxtest.git` at `main`, or download the two archives linked from that entry. Keep each directory whole. Do not install only `SKILL.md`.
 
-An explicit request to install or set up authorizes changes to the user's Codex plugin configuration. It does not authorize Git pushes, publishing, deleting unrelated plugins, or collecting API keys unless the user then asks to generate assets.
+### 2. Detect the host and avoid a second copy
 
-### 1. Preflight
+Resolve the real host application, not the model name. If Python is available, run:
 
 ```bash
-LUX3D_PLUGIN_SOURCE="w77451493-creator/luxtest"
-codex --version
-git ls-remote https://github.com/w77451493-creator/luxtest.git main
+python3 packages/aholo-lux3d/skill/aholo-lux3d/scripts/host_identity.py detect --host-name "<actual-host-name>"
 ```
 
-Require a Codex CLI that supports `codex plugin marketplace` (0.121.0 or newer; prefer 0.144.6+). If `codex` is missing, tell the user to install Codex CLI / ChatGPT desktop first. If `git ls-remote` returns 404, the repository is private or the network cannot reach GitHub; stop and report that the marketplace source must be a public Git repo.
+Known hosts in the packaged registry: Codex (`1`), Claude Code (`2`), DeepSeek (`3`), WorkBuddy (`4`). Any other host uses source `100` and its real name.
 
-### 2. Inspect before mutating
+Before writing files, look for an existing `aholo-lux3d` skill or `aholo-lux3d-mcp` skill, and for an existing MCP server key `lux3d-mcp`.
 
-```bash
-codex plugin marketplace list --json
-codex plugin list --json
-```
+- Nothing installed — install both parts.
+- Either part already installed at `0.1.2` — do not copy a second copy. Register the MCP connection only if it is missing.
+- An older copy exists — replace that product's directories with these `0.1.2` directories. Do not leave both enabled.
+- Do not remove unrelated skills, plugins, or MCP servers.
 
-If `aholo-lux3d@luxtest` is already installed at version `0.1.0`, do not reinstall it. If marketplace `luxtest` exists but points at a different source, stop and report the name collision. Never remove or overwrite unrelated marketplaces, plugins, MCP servers, or auth state.
+### 3. Install the Skill
 
-**Check for an existing Lux3D install before adding another one.** This plugin is also published in the official Codex plugin directory as **Aholo Lux3D**, and it ships the same `lux3d` Skill name. Codex does **not** merge same-named skills: both copies appear in the skill selector and the agent picks between them arbitrarily. Installing this marketplace on top of an existing Lux3D install therefore degrades the user's setup rather than helping it.
+Copy `packages/aholo-lux3d/skill/aholo-lux3d` into the current host's skill directory, keeping the folder name `aholo-lux3d`.
 
-Scan the already-installed plugins for:
+Use the host's own location when you know it. Otherwise use these defaults:
 
-- plugin name `aholo-lux3d` from any other marketplace
-- any other plugin that provides the `lux3d` Skill
+- Codex: `~/.codex/skills/aholo-lux3d`
+- Claude Code: `~/.claude/skills/aholo-lux3d`
+- A host that only imports a zip: use `packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip`
 
-Then act:
+If you cannot find a skill directory and cannot import the zip, stop and tell the user the exact directory they need to import. Do not claim the Skill is installed.
 
-- **Nothing installed** — proceed to step 3 and install. This is the intended path.
-- **Another Lux3D already installed** — stop and report. Tell the user they already have Aholo Lux3D, name the marketplace it came from, and ask whether they want to keep it or switch to this source. Do not install a second copy and do not uninstall the existing one on your own.
-- **Only a different, unrelated plugin** — proceed normally.
+### 4. Install the Connector instructions
 
-Duplicate `lux3d` entries in the skill selector are the symptom of a double install. If the user reports seeing two, that is the cause — one of the two installs must be removed.
+Copy `packages/aholo-lux3d/connector/aholo-lux3d-mcp` the same way, keeping the folder name `aholo-lux3d-mcp`.
 
-### 3. Install the plugin
+- Codex: `~/.codex/skills/aholo-lux3d-mcp`
+- Claude Code: `~/.claude/skills/aholo-lux3d-mcp`
+- A host that only imports a zip: use `packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip`
 
-```bash
-codex plugin marketplace add "$LUX3D_PLUGIN_SOURCE" --ref main --json
-codex plugin add aholo-lux3d@luxtest --json
-```
+### 5. Register the remote MCP connection
 
-`alreadyAdded: true` is success.
+This step is separate from step 4. Add one remote MCP connection in the host's MCP settings:
 
-### 4. Verify
+- Display name: `Aholo Lux3D MCP`
+- Server key: `lux3d-mcp`
+- Transport: `streamable-http`
+- URL: `https://api.aholo3d.cn/lux3d-mcp/mcp`
+- Header: `Authorization`
+- Value: the user's China-region Lux3D API key, with no `Bearer` prefix
 
-```bash
-codex plugin list --json
-```
+Store the key in the host's secret field. Do not paste it into chat, command arguments, or any file in this repository. Do not invent an international MCP URL. If a matching connection already exists, reuse it.
 
-Required evidence:
+If this host has no remote MCP setting you can write, say so and give the user the fields above. Do not claim the Connector is connected.
 
-- plugin id `aholo-lux3d@luxtest`
-- installed version `0.1.0`
-- marketplace name `luxtest`
+### 6. Verify and hand back
 
-If the plugin is listed but not enabled, install or enable it from the Plugins directory under the **Aholo Lux3D** tab.
-
-### 5. Hand back
+Confirm both directories exist on disk, or that both zips were imported. If the host can list MCP tools, discover them. Do not create a generation task as a test.
 
 Report:
 
-- whether installation was new or already present
-- installed plugin id and version
-- that a **new Codex task** is needed to load the plugin snapshot
-- that the user should invoke `$lux3d` (or `@aholo-lux3d`) in the new task
-- that paid generation later needs `LUX3D_CN_API_KEY` (cn) or `LUX3D_GLOBAL_API_KEY` (international) in the environment; do not collect keys during install
+- host name you detected
+- whether the Skill install was new or already present
+- whether the Connector skill install was new or already present
+- whether the remote MCP connection was registered, reused, or still needs the user to add it
+- that a new task or session may be required before the host loads the new skills
+- that paid generation uses the host's stored API key; do not collect the key during install
 
 Do not claim generation works until a task has actually been submitted.
 
 ## Safety boundaries
 
 - Do not put API keys in command arguments, chat logs, or committed files.
-- Do not download or execute unverified install scripts from outside this repository.
-- Do not change Git remotes, push, publish, or create a PR without explicit authorization.
+- Do not download or execute install scripts from outside this repository.
+- Do not change Git remotes, push, publish, or create a pull request.
+- Do not install only the Skill and call the job finished.

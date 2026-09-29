@@ -1,0 +1,19 @@
+{
+  "schema": "lux3d.common-build/v1",
+  "releaseUnit": "common",
+  "profileId": "universal",
+  "version": "0.1.2",
+  "status": "implementation-candidate",
+  "coreVersion": "0.2.0",
+  "profileDigest": "623c76dc3bdb67ec3f17785bab322cdc73907997134411b97b761b1bb43a742b",
+  "inputsDigest": "4f191de2299e3f546733dd09bfe0c3f12f30c1ed839e69e01254fc1be80421e7",
+  "identityMode": "automatic-host",
+  "toolchain": {
+    "node": "24.14.0",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "hostValidated": false,
+  "mode": "connector",
+  "contentDigest": "ad93b89adf5f0ebfa776557c925e0855b2d0527a281f445579ee41c9a01932fb"
+}

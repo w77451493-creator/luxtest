@@ -1,0 +1,6 @@
+interface:
+  display_name: "Aholo Lux3D MCP"
+  icon_small: "./icon.png"
+  icon_large: "./icon.png"
+  short_description: "Connect image editing and 3D asset tools"
+  default_prompt: "Use $aholo-lux3d-mcp to complete this request with Aholo Lux3D MCP."
