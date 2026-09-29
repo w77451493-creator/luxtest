@@ -1,35 +1,89 @@
-# luxtest
+<p align="center">
+  <img src="packages/aholo-lux3d/skill/aholo-lux3d/core/viewer/lux3d-logo.png" alt="Aholo Lux3D" width="420" />
+</p>
 
-给 Coding Agent 用的共用安装目录。一个仓库可以放多个产品。每个产品有两部分：Skill，以及 MCP Connector。
+# Aholo Lux3D
 
-当前产品是 Aholo Lux3D `0.1.2`。
+<p align="center">
+  <a href="#english">English</a> ·
+  <a href="#中文">中文</a> ·
+  <a href="#日本語">日本語</a> ·
+  <a href="#español">Español</a> ·
+  <a href="#português">Português</a>
+</p>
 
-| 部分 | 目录 | 作用 |
-| --- | --- | --- |
-| Skill | `packages/aholo-lux3d/skill/aholo-lux3d` | 本地技能，走 Lux3D OpenAPI |
-| Connector | `packages/aholo-lux3d/connector/aholo-lux3d-mcp` | MCP 说明。远程连接要另外注册 |
+Shared install catalog for [Aholo Lux3D](https://lux3d.aholo3d.com). One product has two parts: a Skill and an MCP Connector. Add another product under `packages/` and `catalog.json`; do not create a new repository.
 
-## 安装
+| | |
+| --- | --- |
+| Website | https://lux3d.aholo3d.com |
+| Skill | `aholo-lux3d` |
+| Connector | `aholo-lux3d-mcp` |
+| Version | `0.1.2` |
 
-在当前 Coding Agent 的任务里粘贴：
+## English
+
+Aholo Lux3D turns one image or a text prompt into 3D assets with PBR materials, preview, and GLB export.
+
+Paste this into any coding agent:
 
 ```text
 /goal Read https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md and install Aholo Lux3D.
 ```
 
-Agent 会按 `AGENTS.md` 安装 Skill 和 Connector，并单独注册这条 MCP：
+The agent installs both parts. Importing the Connector folder does not connect MCP by itself. After install, start a new task. Paid generation needs `LUX3D_GLOBAL_API_KEY`.
 
-- 地址：`https://api.aholo3d.cn/lux3d-mcp/mcp`
-- 认证头：`Authorization`
-- 值：中国站 Lux3D API Key，不加 `Bearer`
+Download: [Skill](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip) · [Connector](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip)
 
-只导入 Connector 目录不算已经连上 MCP。
+## 中文
 
-直接下载：
+Aholo Lux3D 把一张图片或一段文字变成可交付的 3D 资产，包含 PBR 材质、在线预览和 GLB 导出。
 
-- [Skill zip](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip)
-- [Connector zip](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip)
+- 中国站：https://lux3d.aholo3d.cn
+- 国际站：https://lux3d.aholo3d.com
 
-## 再加一个产品
+在任意 Coding Agent 中粘贴：
 
-在 `packages/<产品名>/` 放下一个 Skill 目录和一个 Connector 目录，然后在 `catalog.json` 加一条。不要为每个产品新建仓库。
+```text
+/goal Read https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md and install Aholo Lux3D.
+```
+
+Agent 会同时安装 Skill 和 Connector。只导入 Connector 目录不算已经连上 MCP。装完后请新建任务。付费生成使用 `LUX3D_CN_API_KEY`（国内）或 `LUX3D_GLOBAL_API_KEY`（国际）。
+
+下载：[Skill](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip) · [Connector](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip)
+
+## 日本語
+
+Aholo Lux3D は、1 枚の画像またはテキストから PBR 付きの 3D アセットを生成します。
+
+任意の Coding Agent に貼り付け：
+
+```text
+/goal Read https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md and install Aholo Lux3D.
+```
+
+Skill と Connector の両方が入ります。Connector のフォルダを置いただけでは MCP は接続されません。インストール後は新しいタスクを開始してください。有料生成には `LUX3D_GLOBAL_API_KEY` が必要です。
+
+## Español
+
+Aholo Lux3D convierte una imagen o un texto en activos 3D con materiales PBR.
+
+Pega esto en cualquier agente de código:
+
+```text
+/goal Read https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md and install Aholo Lux3D.
+```
+
+Se instalan la Skill y el Connector. Importar solo la carpeta del Connector no conecta el MCP. Después, abre una tarea nueva. La generación de pago requiere `LUX3D_GLOBAL_API_KEY`.
+
+## Português
+
+O Aholo Lux3D transforma uma imagem ou um texto em ativos 3D com materiais PBR.
+
+Cole em qualquer agente de código:
+
+```text
+/goal Read https://raw.githubusercontent.com/w77451493-creator/luxtest/main/AGENTS.md and install Aholo Lux3D.
+```
+
+A Skill e o Connector são instalados juntos. Importar só a pasta do Connector não conecta o MCP. Depois, abra uma nova tarefa. A geração paga precisa de `LUX3D_GLOBAL_API_KEY`.
