@@ -29,7 +29,7 @@ Installing authorizes writing these two skill directories and this one MCP conne
 
 ### 1. Get the files
 
-Clone `https://github.com/w77451493-creator/luxtest.git` at `main`, or download the two zip files named in `catalog.json`. Keep each directory whole.
+Clone `https://github.com/w77451493-creator/luxtest.git` at `main`. Keep each directory whole.
 
 ### 2. Do not install a second copy
 
@@ -46,7 +46,6 @@ Copy the folders into the current host's skill directory. Keep the folder names.
 
 - Codex: `~/.codex/skills/aholo-lux3d` and `~/.codex/skills/aholo-lux3d-mcp`
 - Claude Code: `~/.claude/skills/aholo-lux3d` and `~/.claude/skills/aholo-lux3d-mcp`
-- A host that only imports a zip: use the two archives in `packages/aholo-lux3d/dist/`
 
 If you cannot find the skill directory, stop and tell the user which folder to import.
 

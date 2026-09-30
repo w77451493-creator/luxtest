@@ -33,8 +33,6 @@ Paste this into any coding agent:
 
 The agent installs both parts. Importing the Connector folder does not connect MCP by itself. After install, start a new task. Paid generation needs `LUX3D_GLOBAL_API_KEY`.
 
-Download: [Skill](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip) · [Connector](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip)
-
 ## 中文
 
 Aholo Lux3D 把一张图片或一段文字变成可交付的 3D 资产，包含 PBR 材质、在线预览和 GLB 导出。
@@ -49,8 +47,6 @@ Aholo Lux3D 把一张图片或一段文字变成可交付的 3D 资产，包含 
 ```
 
 Agent 会同时安装 Skill 和 Connector。只导入 Connector 目录不算已经连上 MCP。装完后请新建任务。付费生成使用 `LUX3D_CN_API_KEY`（国内）或 `LUX3D_GLOBAL_API_KEY`（国际）。
-
-下载：[Skill](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip) · [Connector](packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip)
 
 ## 日本語
 

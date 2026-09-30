@@ -10,14 +10,12 @@
       "skill": {
         "name": "aholo-lux3d",
         "displayName": "Aholo Lux3D",
-        "path": "packages/aholo-lux3d/skill/aholo-lux3d",
-        "archive": "packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-skill.zip"
+        "path": "packages/aholo-lux3d/skill/aholo-lux3d"
       },
       "connector": {
         "name": "aholo-lux3d-mcp",
         "displayName": "Aholo Lux3D MCP",
         "path": "packages/aholo-lux3d/connector/aholo-lux3d-mcp",
-        "archive": "packages/aholo-lux3d/dist/lux3d-plugin-0.1.2-common-connector.zip",
         "serverKey": "lux3d-mcp",
         "transport": "streamable-http",
         "endpoint": "https://api.aholo3d.cn/lux3d-mcp/mcp",
